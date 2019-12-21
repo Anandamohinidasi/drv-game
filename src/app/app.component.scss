@@ -19,12 +19,18 @@
         .depth-giver {
             display: flex;
             justify-content: center;
+            -webkit-perspective: 1000px;
             .reel-container {
                 background-color: #020202;
                 padding: .5rem;
                 margin-right: .8rem;
                 overflow: hidden;
                 height: 335px;
+                /*-webkit-transition: -webkit-transform 5.33s;
+                transition: transform 5.33s; /* Animate the transform properties */
+              /*  -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d; */
+                transform: translate3d(0, 0, 0);
                 .reel {
                     display: flex;
                     flex-direction: column;
@@ -34,9 +40,31 @@
                     border-radius: 10% 10% 10% 10% / 50% 10% 10% 50%;
                    /* box-shadow: inset 0 0 1px rgba(0,0,0,.5),
                                             inset 0 5px 10px rgba(0,0,0,.3);*/ 
-                    box-shadow: inset -5px -4px 12px 5px rgba(0, 0, 0, 0.5),
+                    box-shadow: inset -5px -4px 12px 5px rgba(0, 0, 0, 0.5);
+                   /* -webkit-transform: translateZ(100px);
+                    transform: translateZ(100px);*/
+                    -webkit-transition: 3.3s;
+                    -moz-transition: 3.3s;
+                    transition: 3.3s;  
+                   /* &:hover {
+                       img {
+                        animation: moveSlideshow 3s linear infinite
+                       }
+                    }*/
+                    transform: translate3d(0, 0, 0);
+                    img {
+                        transform: translate3d(0, 0, 0);
+                        background-position: 0 -200px;
+                    animation: moveSlideshow 12s linear infinite;
+                }
                 }
             }
         }
+    }
+}
+
+@keyframes moveSlideshow {
+    100% {
+        transform: translateY(-360%)
     }
 }
