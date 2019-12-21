@@ -1,5 +1,10 @@
 {
   "name": "derivco",
+  "author": {
+    "name": "Ananda Rodrigues",
+    "email": "ananda.mohini.dasi@hotmail.com",
+    "url": "http://www.anandarodrigues.com"
+  },
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
