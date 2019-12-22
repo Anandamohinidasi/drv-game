@@ -1,3 +1,5 @@
+@import './src/variables';
+
 .game-view--container {
     .slot-machine {
         display: flex;
@@ -39,15 +41,51 @@
                     box-shadow: inset -5px -4px 12px 5px rgba(0, 0, 0, 0.5);
                     img {
                         position: absolute;
+                        &:nth-child(1) { 
+                            transform: rotateY(  0deg) translateY(0); 
+                        }
+                        &:nth-child(2) { 
+                            transform: rotateY( 0deg) translateY(120px); 
+                        }
+                        &:nth-child(3) { 
+                            transform: rotateY( 0deg) translateY(240px); 
+                        }
+                        &:nth-child(4) { 
+                            transform: rotateY(0deg) translateY(360px); 
+                        }
+                        &:nth-child(5) {
+                             transform: rotateY(0deg) translateY(480px); 
+                            }
+                    }
+                }
+            }
+        }
+        &.spinReel {
+            .depth-giver {
+                .reel-container {
+                    .reel {
+                        img {
+                            &:nth-child(1) { 
+                                animation: slidr1 $animation-speed infinite;
+                            }
+                            &:nth-child(2) { 
+                                animation: slidr2 $animation-speed infinite;
+                            }
+                            &:nth-child(3) { 
+                                animation: slidr3 $animation-speed infinite;
+                            }
+                            &:nth-child(4) { 
+                                animation: slidr4 $animation-speed infinite;
+                            }
+                            &:nth-child(5) {
+                                 animation: slidr5 $animation-speed infinite;
+                                }
+                        }
                     }
                 }
             }
         }
     }
-}
-
-@keyframes reelling {
-
 }
 
 @keyframes slidr1 {
@@ -97,25 +135,119 @@
 
   
 
-  
-  /*.reel>img:not(:first-child) {display: none;}*/
-.reel>img:nth-child(1) { 
-    transform: rotateY(  0deg) translateY(0); 
-    animation: slidr1 10s infinite;
+
+/*
+    Pulling hand
+*/    
+$red: #760209;
+@mixin boxSizing ($value: border-box) {
+	-webkit-box-sizing: $value;
+	-moz-box-sizing: $value;
+	box-sizing: $value;
 }
-.reel>img:nth-child(2) { 
-    transform: rotateY( 0deg) translateY(120px); 
-    animation: slidr2 10s infinite;
+@mixin origin($values...) {
+	-webkit-transform-origin: $values;
+	-moz-transform-origin: $values;
+	transform-origin: $values;
 }
-.reel>img:nth-child(3) { 
-    transform: rotateY( 0deg) translateY(240px); 
-    animation: slidr3 10s infinite;
+@mixin transform($values...) {
+	-webkit-transform: $values;
+	-moz-transform: $values;
+	transform: $values;	
 }
-.reel>img:nth-child(4) { 
-    transform: rotateY(0deg) translateY(360px); 
-    animation: slidr4 10s infinite;
+@mixin radialGradient($values...) {
+    background-image: -webkit-radial-gradient($values);
+    background-image: -moz-radial-gradient($values);  
+    background-image: -ms-radial-gradient($values);  
+    background-image: -o-radial-gradient($values); 	
+  }
+
+@mixin twoLinearGradients($first, $second) {
+    background-image: -webkit-linear-gradient($first), -webkit-linear-gradient($second);
+    background-image: -moz-linear-gradient($first), -moz-linear-gradient($second);
+    background-image: -ms-linear-gradient($first), -ms-linear-gradient($second);
+    background-image: -o-linear-gradient($first), -o-linear-gradient($second);
+  }
+
+  @mixin rotate($values...) {
+	-webkit-transform: rotate($values);
+	-moz-transform: rotate($values);
+	transform: rotate($values);	
 }
-.reel>img:nth-child(5) {
-     transform: rotateY(0deg) translateY(480px); 
-     animation: slidr5 10s infinite;
-    }
+@mixin transition($property: all, $duration: .3s, $timing: ease-in-out, $delay: 0s) {
+	-webkit-transition: $property $duration $timing $delay;
+	-moz-transition: $property $duration $timing $delay;
+	-o-transition: $property $duration $timing $delay;
+	-ms-transition: $property $duration $timing $delay;
+	transition: $property $duration $timing $delay;  
+}
+
+@mixin linearGradient($values...) {
+    background-image: -webkit-linear-gradient($values);
+    background-image: -moz-linear-gradient($values);
+    background-image: -ms-linear-gradient($values);
+    background-image: -o-linear-gradient($values);
+  }
+
+@mixin linearGradientUrl($gradient, $url) {
+    background-image: -webkit-linear-gradient($gradient), $url;
+    background-image: -moz-linear-gradient($gradient), $url;
+    background-image: -ms-linear-gradient($gradient), $url;
+    background-image: -o-linear-gradient($gradient), $url;
+  }
+#arm {
+	//*** BASE ***//
+	position: relative;
+	top: 10px;
+    left: 83px;
+    cursor: pointer;
+	width: 60px;
+	height: 80px;
+	border-radius: 10% / 50%;
+	background-color: #666;
+	@include twoLinearGradients((left, hsla(0,0%,0%,.3) 0%, hsla(0,0%,0%,0) 15%, hsla(0,0%,100%,0) 50%, hsla(0,0%,0%,0) 85%, hsla(0,0%,0%,.3)),(top, #333 0%, #666 10%, #999 30%, hsla(0,0%,100%,.8) 60%, #999 70%, #666 90%, #333 100%));
+	&:before {
+		//*** POLE ***//
+		content: '';
+		position: absolute;
+		top: -40px;
+		left: 16px;
+		width: 16px;
+		height: 70px;
+		border-radius: 8px;
+		box-shadow: 0px 2px 0px #333;
+		background-color: #999;
+		@include rotate(-10deg);
+		@include linearGradient(left, #666 0%, hsla(0,0%,100%,.7) 50%, #666 100%);
+		background-image: linear-gradient(to right, #666 0%, hsla(0,0%,100%,.7) 50%, #666 100%);
+		@include transition($duration:.5s);
+	}
+	&:after {
+		//*** BALL ***//
+		content: '';
+		position: absolute;
+		top: -70px;
+		left: -4px;
+		width: 40px;
+		height: 40px;
+		border-radius: 100%;
+		background-color: $red;
+		border: 2px solid darken($red, 5%);
+		@include boxSizing;
+		@include radialGradient(50% 40%, closest-corner, hsla(0,0,100%,.5), hsla(0,0%,100%,0));
+		@include transition($duration:.5s);
+	}
+}
+#arm.clicked {
+	&:before {
+		top: -20px;
+		left: 20px;
+		@include transform(rotate3d(100,10,0,180deg));
+		@include origin(0% 100%);
+		@include transition($duration:.5s);
+	}
+	&:after {
+		top: 90px;
+		@include transition($duration:.5s);
+	}
+}

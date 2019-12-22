@@ -1,5 +1,5 @@
 <section class="game-view--container">
-  <section class="slot-machine">
+  <section class="slot-machine" [ngClass]="{'spinReel': reelSpinning}" >
     <div class="depth-giver">
         <div class="reel-container">
             <div id="reel1" class="reel" >
@@ -28,6 +28,10 @@
               <img src="/assets/images/Reel/Cherry.png" alt="Cherry image">
           </div>      
           </div>
+    </div>
+    <div id="shoulder" (click)="startReel()">
+      <div [ngClass]="{'clicked': armClicked}" id="arm">
+      </div>
     </div>
   </section>
 </section>
