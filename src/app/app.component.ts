@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
  public selectedIndex = 1;
  public armClicked = false;
  public reelSpinning = false;
+ public balance = 10;
  public winningLine = {
   cherryFirst: false,
   cherrySecond: false,
@@ -31,9 +32,12 @@ public nextButton() {
 
 public startReel() {
   console.log('there we go champion!');
-  this.armClicked = true;
-  setTimeout(()=> this.armClicked = false, 500)
-  this.reelSpinning = true;
+  if (this.balance > 0) {
+    this.armClicked = true;
+    setTimeout(()=> this.armClicked = false, 500)
+    this.reelSpinning = true;
+    this.balance--
+  }
 }
 
 ngOnInit() {
