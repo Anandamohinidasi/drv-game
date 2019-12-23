@@ -1,11 +1,89 @@
 @import './src/variables';
 
 .game-view--container {
+    .pay-table {
+        width: 620px;
+        height: 295px;
+        display: flex;
+        align-items: flex-end;
+        margin: auto;
+        background: red;
+        border-radius: 50% 50% 0% 0% / 55% 55% 0% 0%;
+        .winning-explanations {
+            width: 100%;
+            background-color: #eee;
+            height: 50%;
+            margin: 0 .5rem .5rem;
+            border-radius: 10px;
+            box-shadow: inset 0px 1px 8px 0px rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: flex-end;
+            flex-direction: column;
+            flex-wrap: wrap;
+            .combination, .prize {
+                height: fit-content;
+            }
+            .explanation-lines {
+                display: inline-flex;
+                align-items: center;
+                height: fit-content;
+                width: fit-content;
+                position: relative;
+                .combination {
+                    display: inline-flex;
+                    .combination-symbol {
+                        width: 50px;
+                        height: 45px;
+                        background-size: contain;
+                        background-repeat: no-repeat;
+                    }
+                    .cherry {
+                        background-image: url('/assets/images/Reel/Cherry.png');
+                    }
+                    .seven {
+                        background-image: url('/assets/images/Reel/7.png');
+                    }
+                    .threebar {
+                        background-image: url('/assets/images/Reel/3xBAR.png');
+                    }
+                    .twobar {
+                        background-image: url('/assets/images/Reel/2xBAR.png');
+                    }
+                    .bar {
+                        background-image: url('/assets/images/Reel/BAR.png');
+                    }
+                    .any-combination {
+                        font-weight: 900;
+                        text-transform: uppercase;
+                        font-family: sans-serif;
+                        letter-spacing: -2px;
+                        line-height: 14px;
+                        transform: rotateZ(-35deg);
+                        color: #e20a16;
+                        text-shadow: -1px 2px 1px #8BC34A;
+                    }
+                
+                }
+                .prize {
+                    font-size: 1rem;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    font-family: sans-serif;
+                    letter-spacing: -2px;
+                    line-height: 14px;
+                    transform: rotateZ(-35deg);
+                    color: #ffe600;
+                    text-shadow: -1px 2px 1px #930a00;
+                }
+            }
+        }
+    }
     .slot-machine {
         display: flex;
         justify-content: center;
         margin: auto;
-        height: 500px;
+        position: relative;
+        height: 400px;
         width: 620px;
         align-items: center;
         background-color: hsl(0,0%,90%);
@@ -85,8 +163,31 @@
                 }
             }
         }
+        #shoulder {
+            position: absolute;
+            right: -56px;
+        }
     }
+    .blink:before {
+        position: absolute;
+        left: 0;
+        top: -10%;
+        width: 108%;
+        height: 120%;
+        background: #FFEB3B;
+        filter: blur(10px);
+        content: "";
+        opacity: 0;
+        z-index: 9;
+        animation: flash .5s ease-out alternate infinite;
+      }
 }
+
+@keyframes flash{
+    to {
+      opacity: 1;
+    }
+  }
 
 @keyframes slidr1 {
     0% { transform: translateY(0); }
@@ -196,10 +297,7 @@ $red: #760209;
     background-image: -o-linear-gradient($gradient), $url;
   }
 #arm {
-	//*** BASE ***//
 	position: relative;
-	top: 10px;
-    left: 83px;
     cursor: pointer;
 	width: 60px;
 	height: 80px;
@@ -207,7 +305,6 @@ $red: #760209;
 	background-color: #666;
 	@include twoLinearGradients((left, hsla(0,0%,0%,.3) 0%, hsla(0,0%,0%,0) 15%, hsla(0,0%,100%,0) 50%, hsla(0,0%,0%,0) 85%, hsla(0,0%,0%,.3)),(top, #333 0%, #666 10%, #999 30%, hsla(0,0%,100%,.8) 60%, #999 70%, #666 90%, #333 100%));
 	&:before {
-		//*** POLE ***//
 		content: '';
 		position: absolute;
 		top: -40px;
@@ -223,7 +320,6 @@ $red: #760209;
 		@include transition($duration:.5s);
 	}
 	&:after {
-		//*** BALL ***//
 		content: '';
 		position: absolute;
 		top: -70px;

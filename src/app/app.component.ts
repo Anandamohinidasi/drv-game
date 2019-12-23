@@ -11,6 +11,17 @@ export class AppComponent implements OnInit {
  public selectedIndex = 1;
  public armClicked = false;
  public reelSpinning = false;
+ public winningLine = {
+  cherryFirst: false,
+  cherrySecond: false,
+  cherryLast: false,
+  threeSeven: false,
+  sevenCherryComb: false,
+  threeTimesThreeBarAny: false,
+  threeTimesTwoBarAny: false,
+  threeTimesSingleBar: false,
+  anyBarComb: false
+ }
 
 public nextButton() {
  this.selectedIndex++;

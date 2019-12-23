@@ -1,4 +1,102 @@
 <section class="game-view--container">
+  <section class="pay-table">
+    <div class="winning-explanations">
+      <div class="explanation-lines" 
+          [ngClass]="{'blink': winningLine.cherryFirst}">
+          <div class="combination">
+              <div class="cherry combination-symbol"></div>
+              <div class="cherry combination-symbol"></div>
+              <div class="cherry combination-symbol"></div>
+            </div>
+          <div class="prize">2000</div>
+      </div>
+      <div class="explanation-lines"
+          [ngClass]="{'blink': winningLine.cherrySecond}">
+          <div class="combination">
+              <div class="cherry combination-symbol"></div>
+              <div class="cherry combination-symbol"></div>
+              <div class="cherry combination-symbol"></div>
+            </div>
+          <div class="prize">1000</div>
+      </div>
+      <div class="explanation-lines"
+          [ngClass]="{'blink': winningLine.cherryLast}">
+          <div class="combination">
+              <div class="cherry combination-symbol"></div>
+              <div class="cherry combination-symbol"></div>
+              <div class="cherry combination-symbol"></div>
+            </div>
+          <div class="prize">4000</div>
+      </div>
+      <div class="explanation-lines"
+          [ngClass]="{'blink': winningLine.threeSeven}">
+          <div class="combination">
+              <div class="seven combination-symbol"></div>
+              <div class="seven combination-symbol"></div>
+              <div class="seven combination-symbol"></div>
+            </div>
+          <div class="prize">150</div>
+      </div>
+      <div class="explanation-lines"
+          [ngClass]="{'blink': winningLine.sevenCherryComb}">
+          <div class="combination">
+              <div class="seven combination-symbol"></div>
+              <div class="cherry combination-symbol"></div>
+              <div class="combination-symbol">
+                <div class="any-combination">
+                  <div class="any">any</div>
+                  <div class="word-combination">
+                    comb
+                  </div>
+                </div>
+              </div>
+            </div>
+          <div class="prize">75</div>
+      </div>
+      <div class="explanation-lines"
+          [ngClass]="{'blink': winningLine.threeTimesThreeBarAny}">
+          <div class="combination">
+              <div class="threebar combination-symbol"></div>
+              <div class="threebar combination-symbol"></div>
+              <div class="threebar combination-symbol"></div>
+            </div>
+          <div class="prize">50</div>
+      </div>
+      <div class="explanation-lines"
+          [ngClass]="{'blink': winningLine.threeTimesTwoBarAny}">
+          <div class="combination">
+              <div class="twobar combination-symbol"></div>
+              <div class="twobar combination-symbol"></div>
+              <div class="twobar combination-symbol"></div>
+            </div>
+          <div class="prize">20</div>
+      </div>
+      <div class="explanation-lines"
+          [ngClass]="{'blink': winningLine.threeTimesSingleBar}">
+          <div class="combination">
+              <div class="bar combination-symbol"></div>
+              <div class="bar combination-symbol"></div>
+              <div class="bar combination-symbol"></div>
+            </div>
+          <div class="prize">10</div>
+      </div>
+      <div class="explanation-lines"
+          [ngClass]="{'blink': winningLine.anyBarComb}">
+          <div class="combination">
+              <div class="bar combination-symbol"></div>
+              <div class="twobar combination-symbol"></div>
+              <div class="threebar combination-symbol"></div>
+              <div class="any-combination">
+                  <div class="any">any</div>
+                  <div class="word-combination">
+                    comb
+                  </div>
+                </div>
+            </div>
+          <div class="prize">5</div>
+      </div>
+    </div>
+  </section>
   <section class="slot-machine" [ngClass]="{'spinReel': reelSpinning}" >
     <div class="depth-giver">
         <div class="reel-container">
