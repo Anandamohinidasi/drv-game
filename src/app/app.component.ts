@@ -7,6 +7,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 @ViewChild('reel1', {static: false}) reel1;
+@ViewChild('reel2', {static: false}) reel2;
+@ViewChild('reel3', {static: false}) reel3;
+
  public rotationStyle = {'transform' :'translateZ(-288px) rotateX(60deg)'};
  public cellCount = 5;
  public selectedIndex = 1;
@@ -31,15 +34,20 @@ public nextButton() {
  this.rotationStyle = {'transform' : `rotateX(${angle}deg)`};  
 };
 
-private startSpinning() {
+private startSpinning() {  
+  this.spinReel(this.reel1, 2000);
+  this.spinReel(this.reel2, 2500);
+  this.spinReel(this.reel3, 3000);
+}
+
+private spinReel(reel, time) {
   const visibilityMap = {
     '240' : 'visible',
     '-120' : 'hidden',
     '360' : 'hidden'
   };
-  
   const interval = setInterval(()=>{
-    Array.from(this.reel1.nativeElement.childNodes)
+    Array.from(reel.nativeElement.childNodes)
     .map(child => {
       const yTranslated = new WebKitCSSMatrix(window.getComputedStyle(child).webkitTransform);
       const translationMap = {
@@ -52,7 +60,7 @@ private startSpinning() {
         return child;
     })
   }, 70);
-  setTimeout(()=> clearInterval(interval), 2000);
+  setTimeout(()=> clearInterval(interval), time);
 }
 
 public startReel() {
