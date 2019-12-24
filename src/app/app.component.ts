@@ -40,27 +40,52 @@ private startSpinning() {
   this.spinReel(this.reel3, 3000);
 }
 
-private spinReel(reel, time) {
+private async spinReel(reel, time) {
   const visibilityMap = {
     '240' : 'visible',
     '-120' : 'hidden',
     '360' : 'hidden'
   };
+  const initialPCherry = this.getSimbolPosition(reel, 4);
+  const initialPSeven = this.getSimbolPosition(reel, 3);
+  const initialPTwoBar = this.getSimbolPosition(reel, 2);
+  const initialPBar = this.getSimbolPosition(reel, 1);
+  const initialPThreeBar = this.getSimbolPosition(reel, 0);
   const interval = setInterval(()=>{
     Array.from(reel.nativeElement.childNodes)
     .map(child => {
       const yTranslated = new WebKitCSSMatrix(window.getComputedStyle(child).webkitTransform);
       const translationMap = {
         '-240' : 360,
-        default : yTranslated.f - 120
+        default : yTranslated.f - 10
       }
-      if(yTranslated.f - 120 == -240) child.style.transform = `translateY(360px)`;
-      else child.style.transform = `translateY(${yTranslated.f - 120}px)`;
-        child.style.visibility = visibilityMap[yTranslated.f - 120];
+      if(yTranslated.f - 10 == -240) child.style.transform = `translateY(360px)`;
+      else child.style.transform = `translateY(${yTranslated.f - 10}px)`;
+        child.style.visibility = visibilityMap[yTranslated.f - 10];
         return child;
     })
-  }, 70);
-  setTimeout(()=> clearInterval(interval), time);
+  }, this.getNeededVelocity(initialPCherry, 240, 10, time));
+  setTimeout(function() {
+    clearInterval(interval);
+  }.bind(this), time);
+}
+
+private getNeededVelocity(startingPoint, desiredFinalPoint, stepSize, cicleDuration): number {
+  console.log('actual position', startingPoint);
+  console.log('desired final position', desiredFinalPoint);
+  
+  const totalCicleVelocity =  (desiredFinalPoint - startingPoint) / cicleDuration;
+  console.log('velocity to achieve desired ',totalCicleVelocity);
+  const intervalTime = stepSize / Math.abs(totalCicleVelocity);
+  console.log('tempo proposto ', intervalTime);
+  
+  return intervalTime;
+}
+
+private getSimbolPosition(parent, childIndex): number {
+  const element = parent.nativeElement.childNodes[childIndex];
+  const elementPositionMatrix = new WebKitCSSMatrix(window.getComputedStyle(element).webkitTransform);
+  return elementPositionMatrix.f
 }
 
 public startReel() {
