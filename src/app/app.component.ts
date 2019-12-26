@@ -25,13 +25,13 @@ export class AppComponent {
  }
 
 private startSpinning() {
-  const desiredImageForReel1 = 5;
-  const desiredImageForReel2 = 1;
-  const desiredImageForReel3 = 5;
+  const desiredImageForReel1 = Math.floor(Math.random() * 5) + 1;
+  const desiredImageForReel2 = Math.floor(Math.random() * 5) + 1;;
+  const desiredImageForReel3 = Math.floor(Math.random() * 5) + 1;;
 
-  const desiredPositionForReel1 = 2;
-  const desiredPositionForReel2 = 2;
-  const desiredPositionForReel3 = 2;
+  const desiredPositionForReel1 = Math.floor(Math.random() * 5) + 1;;
+  const desiredPositionForReel2 = Math.floor(Math.random() * 5) + 1;;
+  const desiredPositionForReel3 = Math.floor(Math.random() * 5) + 1;;
 
   this.spinReel(this.reel1, 2000, desiredImageForReel1, desiredPositionForReel1);
   this.spinReel(this.reel2, 2500, desiredImageForReel2, desiredPositionForReel2);
