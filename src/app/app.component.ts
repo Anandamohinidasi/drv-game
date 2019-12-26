@@ -1,20 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'derivco-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 @ViewChild('reel1', {static: false}) reel1;
 @ViewChild('reel2', {static: false}) reel2;
 @ViewChild('reel3', {static: false}) reel3;
 
- public rotationStyle = {'transform' :'translateZ(-288px) rotateX(60deg)'};
- public cellCount = 5;
- public selectedIndex = 1;
  public armClicked = false;
- public reelSpinning = false;
  public balance = 10;
  public winningLine = {
   cherryFirst: false,
@@ -28,64 +24,265 @@ export class AppComponent implements OnInit {
   anyBarComb: false
  }
 
-public nextButton() {
- this.selectedIndex++;
- let angle = this.selectedIndex / this.cellCount * 360;
- this.rotationStyle = {'transform' : `rotateX(${angle}deg)`};  
-};
+private startSpinning() {
+  const desiredImageForReel1 = 5;
+  const desiredImageForReel2 = 1;
+  const desiredImageForReel3 = 5;
 
-private startSpinning() {  
-  this.spinReel(this.reel1, 2000);
-  this.spinReel(this.reel2, 2500);
-  this.spinReel(this.reel3, 3000);
+  const desiredPositionForReel1 = 2;
+  const desiredPositionForReel2 = 2;
+  const desiredPositionForReel3 = 2;
+
+  this.spinReel(this.reel1, 2000, desiredImageForReel1, desiredPositionForReel1);
+  this.spinReel(this.reel2, 2500, desiredImageForReel2, desiredPositionForReel2);
+  this.spinReel(this.reel3, 3000, desiredImageForReel3, desiredPositionForReel3);
 }
 
-private async spinReel(reel, time) {
+private async spinReel(reel, time, desiredImageForReel, desiredPosition) {  
+  const translationMap = {
+    1: 360,
+    2: 240,
+    3: 120,
+    4: 0,
+    5: -120
+  }
+  const dataPositionMap = {
+    '360': 1,
+    '240': 2,
+    '120': 3,
+    '0': 4,
+    '-120': 5
+  }
+  
   const visibilityMap = {
-    '240' : 'visible',
-    '-120' : 'hidden',
-    '360' : 'hidden'
-  };
-  const initialPCherry = this.getSimbolPosition(reel, 4);
-  const initialPSeven = this.getSimbolPosition(reel, 3);
-  const initialPTwoBar = this.getSimbolPosition(reel, 2);
-  const initialPBar = this.getSimbolPosition(reel, 1);
-  const initialPThreeBar = this.getSimbolPosition(reel, 0);
-  const interval = setInterval(()=>{
+    1: 'hidden',
+    2: 'visible',
+    3: 'visible',
+    4: 'visible',
+    5: 'hidden'
+  }
+  const rotatingToDesiredMap = {
+    1: {
+      1: {
+        1: 360,
+        2: 240,
+        3: 120,
+        4: 0,
+        5: -120
+      },
+      2: {
+        1: -120,
+        2: 360,
+        3: 240,
+        4: 120,
+        5: 0
+      },
+      3: {
+        1: 0,
+        2: -120,
+        3: 360,
+        4: 240,
+        5: 120
+      },
+      4: {
+        1: 120,
+        2: 0,
+        3: -120,
+        4: 360,
+        5: 240
+      },
+      5: {
+        1: 240,
+        2: 120,
+        3: 0,
+        4: -120,
+        5: 360
+      }
+    },
+    2: {
+      1: {
+        1: 240,
+        2: 120,
+        3: 0,
+        4: -120,
+        5: 360
+
+      },
+      2: {
+        1: 360,
+        2: 240,
+        3: 120,
+        4: 0,
+        5: -120
+      },
+      3: {
+        1: -120,
+        2: 360,
+        3: 240,
+        4: 120,
+        5: 0
+      },
+      4: {
+        1: 0,
+        2: -120,
+        3: 360,
+        4: 240,
+        5: 120
+      },
+      5: {
+        1: 120,
+        2: 0,
+        3: -120,
+        4: 360,
+        5: 240
+      }
+    },
+    3: {
+      1: {
+        1: 120,
+        2: 0,
+        3: -120,
+        4: 360,
+        5: 240
+
+      },
+      2: {
+        1: 240,
+        2: 120,
+        3: 0,
+        4: -120,
+        5: 360
+      },
+      3: {
+        1: 360,
+        2: 240,
+        3: 120,
+        4: 0,
+        5: -120
+      },
+      4: {
+        1: -120,
+        2: 360,
+        3: 240,
+        4: 120,
+        5: 0
+      },
+      5: {
+        1: 0,
+        2: -120,
+        3: 360,
+        4: 240,
+        5: 120
+      }
+    },
+    4: {
+      1: {
+        1: 0,
+        2: -120,
+        3: 360,
+        4: 240,
+        5: 120
+
+      },
+      2: {
+        1: 120,
+        2: 0,
+        3: -120,
+        4: 360,
+        5: 240
+      },
+      3: {
+        1: 240,
+        2: 120,
+        3: 0,
+        4: -120,
+        5: 360
+      },
+      4: {
+        1: 360,
+        2: 240,
+        3: 120,
+        4: 0,
+        5: -120
+      },
+      5: {
+        1: -120,
+        2: 360,
+        3: 240,
+        4: 120,
+        5: 0
+      }
+    },
+    5: {
+      1: {
+        1: -120,
+        2: 360,
+        3: 240,
+        4: 120,
+        5: 0
+
+      },
+      2: {
+        1: 0,
+        2: -120,
+        3: 360,
+        4: 240,
+        5: 120
+      },
+      3: {
+        1: 120,
+        2: 0,
+        3: -120,
+        4: 360,
+        5: 240
+      },
+      4: {
+        1: 240,
+        2: 120,
+        3: 0,
+        4: -120,
+        5: 360
+      },
+      5: {
+        1: 360,
+        2: 240,
+        3: 120,
+        4: 0,
+        5: -120
+      }
+    }
+  }
+  Array.from(reel.nativeElement.childNodes).map(child => {
+      const calculatedPosition = rotatingToDesiredMap[child.dataset.position][desiredImageForReel][desiredPosition];
+      child.style.transform = `translateY(${calculatedPosition}px)`;
+      child.dataset.position = dataPositionMap[calculatedPosition];
+  })
+
+  const interval = setInterval(() => {
     Array.from(reel.nativeElement.childNodes)
     .map(child => {
-      const yTranslated = new WebKitCSSMatrix(window.getComputedStyle(child).webkitTransform);
-      const translationMap = {
-        '-240' : 360,
-        default : yTranslated.f - 10
-      }
-      if(yTranslated.f - 10 == -240) child.style.transform = `translateY(360px)`;
-      else child.style.transform = `translateY(${yTranslated.f - 10}px)`;
-        child.style.visibility = visibilityMap[yTranslated.f - 10];
+      if(child.dataset.position == 5) child.dataset.position = 1
+      else child.dataset.position++
+      child.style.transform = `translateY(${translationMap[child.dataset.position]}px)`;
+        child.style.visibility = visibilityMap[child.dataset.position];
         return child;
     })
-  }, this.getNeededVelocity(initialPCherry, 240, 10, time));
-  setTimeout(function() {
+  }, 50); // se rodar a 100 para no mesmo lugar // 50 também // 25 também
+  setTimeout(() => {
     clearInterval(interval);
-  }.bind(this), time);
-}
-
-private getNeededVelocity(startingPoint, desiredFinalPoint, stepSize, cicleDuration): number {
-  console.log('actual position', startingPoint);
-  console.log('desired final position', desiredFinalPoint);
-  
-  const totalCicleVelocity =  (desiredFinalPoint - startingPoint) / cicleDuration;
-  console.log('velocity to achieve desired ',totalCicleVelocity);
-  const intervalTime = stepSize / Math.abs(totalCicleVelocity);
-  console.log('tempo proposto ', intervalTime);
-  
-  return intervalTime;
-}
-
-private getSimbolPosition(parent, childIndex): number {
-  const element = parent.nativeElement.childNodes[childIndex];
-  const elementPositionMatrix = new WebKitCSSMatrix(window.getComputedStyle(element).webkitTransform);
-  return elementPositionMatrix.f
+    this.resetDataPosition;
+    const originalPositionMap = {
+      0: 4,
+      1: 3,
+      2: 2,
+      3: 1,
+      4: 5
+    }
+    Array.from(reel.nativeElement.childNodes).map((child, index) => {
+      child.dataset.position = originalPositionMap[index];
+      return child;
+    })
+  }, time);
 }
 
 public startReel() {
@@ -93,15 +290,8 @@ public startReel() {
   if (this.balance > 0) {
     this.armClicked = true;
     setTimeout(()=> this.armClicked = false, 500)
-    //this.reelSpinning = true;
     this.startSpinning();
     this.balance--
   }
 }
-
-
-ngOnInit() {
-// setInterval(() => this.nextButton(), 500); 
-}
-
 }

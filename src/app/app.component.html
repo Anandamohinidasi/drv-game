@@ -102,31 +102,31 @@
           <div class="depth-giver">
               <div class="reel-container">
                   <div #reel1 class="reel" >
-                    <img src="/assets/images/Reel/3xBAR.png" alt="3 BAR image">
-                    <img src="/assets/images/Reel/BAR.png" alt="BAR image">
-                    <img src="/assets/images/Reel/2xBAR.png" alt="2 BAR image">
-                    <img src="/assets/images/Reel/7.png" alt="7 image">
-                    <img src="/assets/images/Reel/Cherry.png" alt="Cherry image">
+                    <img [attr.data-position]="4" src="/assets/images/Reel/3xBAR.png" alt="3 BAR image">
+                    <img [attr.data-position]="3" src="/assets/images/Reel/BAR.png" alt="BAR image">
+                    <img [attr.data-position]="2" src="/assets/images/Reel/2xBAR.png" alt="2 BAR image">
+                    <img [attr.data-position]="1" src="/assets/images/Reel/7.png" alt="7 image">
+                    <img [attr.data-position]="5" src="/assets/images/Reel/Cherry.png" alt="Cherry image">
                   </div>
                 </div>
                 <div class="reel-container">
                   <div #reel2 class="reel">
-                    <img src="/assets/images/Reel/3xBAR.png" alt="3 BAR image">
-                    <img src="/assets/images/Reel/BAR.png" alt="BAR image">
-                    <img src="/assets/images/Reel/2xBAR.png" alt="2 BAR image">
-                    <img src="/assets/images/Reel/7.png" alt="7 image">
-                    <img src="/assets/images/Reel/Cherry.png" alt="Cherry image">
+                    <img [attr.data-position]="4" src="/assets/images/Reel/3xBAR.png" alt="3 BAR image">
+                    <img [attr.data-position]="3" src="/assets/images/Reel/BAR.png" alt="BAR image">
+                    <img [attr.data-position]="2" src="/assets/images/Reel/2xBAR.png" alt="2 BAR image">
+                    <img [attr.data-position]="1" src="/assets/images/Reel/7.png" alt="7 image">
+                    <img [attr.data-position]="5" src="/assets/images/Reel/Cherry.png" alt="Cherry image">
                   </div>
                 </div>
                 <div class="reel-container">
                 <div #reel3 class="reel">
-                    <img src="/assets/images/Reel/3xBAR.png" alt="3 BAR image">
-                    <img src="/assets/images/Reel/BAR.png" alt="BAR image">
-                    <img src="/assets/images/Reel/2xBAR.png" alt="2 BAR image">
-                    <img src="/assets/images/Reel/7.png" alt="7 image">
-                    <img src="/assets/images/Reel/Cherry.png" alt="Cherry image">
+                  <img [attr.data-position]="4" src="/assets/images/Reel/3xBAR.png" alt="3 BAR image">
+                  <img [attr.data-position]="3" src="/assets/images/Reel/BAR.png" alt="BAR image">
+                  <img [attr.data-position]="2" src="/assets/images/Reel/2xBAR.png" alt="2 BAR image">
+                  <img [attr.data-position]="1" src="/assets/images/Reel/7.png" alt="7 image">
+                  <img [attr.data-position]="5" src="/assets/images/Reel/Cherry.png" alt="Cherry image">
                 </div>      
-                </div>
+              </div>
           </div>
           <div id="shoulder" (click)="startReel()">
             <div [ngClass]="{'clicked': armClicked}" id="arm">
