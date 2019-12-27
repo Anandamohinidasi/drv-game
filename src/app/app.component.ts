@@ -419,16 +419,14 @@ private checkResult() {
   };
 
   const bestPrice = Math.max(this.line1Score,
-  this.line1Score,
-  this.line1Score);
+  this.line2Score,
+  this.line3Score);
 
   const bestWinningLine = map[bestPrice];
   
   console.log('best winning line', bestPrice, bestWinningLine);
     
-  this.balance += Math.max(this.line1Score,
-    this.line1Score,
-    this.line1Score);
+  this.balance += bestPrice;
   
   if (this.winningLine[bestWinningLine.value]) this.winningLine[bestWinningLine.value][bestWinningLine.i] = true;
   this.winningLine.checkCherrySevenCombination(bestWinningLine.value);
