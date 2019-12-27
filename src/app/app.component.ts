@@ -24,7 +24,7 @@ export class AppComponent {
   anyBarComb: false
  }
 
-private startSpinning() {
+private async startSpinning() {
   const desiredImageForReel1 = Math.floor(Math.random() * 5) + 1;
   const desiredImageForReel2 = Math.floor(Math.random() * 5) + 1;;
   const desiredImageForReel3 = Math.floor(Math.random() * 5) + 1;;
@@ -36,6 +36,9 @@ private startSpinning() {
   this.spinReel(this.reel1, 2000, desiredImageForReel1, desiredPositionForReel1);
   this.spinReel(this.reel2, 2500, desiredImageForReel2, desiredPositionForReel2);
   this.spinReel(this.reel3, 3000, desiredImageForReel3, desiredPositionForReel3);
+  setTimeout(() => {
+    this.checkResult();
+  }, 3000);
 }
 
 private async spinReel(reel, time, desiredImageForReel, desiredPosition) {  
@@ -270,19 +273,103 @@ private async spinReel(reel, time, desiredImageForReel, desiredPosition) {
   }, 50); // se rodar a 100 para no mesmo lugar // 50 também // 25 também
   setTimeout(() => {
     clearInterval(interval);
-    this.resetDataPosition;
-    const originalPositionMap = {
-      0: 4,
-      1: 3,
-      2: 2,
-      3: 1,
-      4: 5
-    }
-    Array.from(reel.nativeElement.childNodes).map((child, index) => {
-      child.dataset.position = originalPositionMap[index];
-      return child;
-    })
   }, time);
+}
+
+private checkResult() {
+  /* check winning lines*/
+  const cherrySevenCombination = {
+    1: 75,
+    2: 75,
+    3: 75
+  }
+  const winningTableMap = {
+    '5,5,5' : {
+      1: 2000,
+      2: 1000,
+      3: 4000
+    },
+    '1,1,1': {
+      1: 150,
+      2: 150,
+      3: 150
+    },
+    '1,1,5': cherrySevenCombination,
+    '1,5,1': cherrySevenCombination,
+    '5,1,1': cherrySevenCombination,
+    '5,5,1': cherrySevenCombination,
+    '5,1,5': cherrySevenCombination,
+    '1,5,5': cherrySevenCombination,
+    '4,4,4': {
+      1: 50,
+      2: 50,
+      3: 50
+    },
+    '2,2,2': {
+      1: 20,
+      2: 20,
+      3: 20
+    },
+    '3,3,3': {
+      1: 10,
+      2: 10,
+      3: 10
+    },
+    checkAnyBarCombination(combination: string) {
+      return combination.includes('3') && 5;
+    },
+    checkCherrySevenCombination(combination: string) {
+      return combination.includes('1') && combination.includes('5') && 75;
+    }
+  }
+  /* check winning lines*/
+
+
+  /*reset to original position*/
+  const originalPositionMap = {
+    0: 4,
+    1: 3,
+    2: 2,
+    3: 1,
+    4: 5
+  }
+
+  let line1: any = [];
+  let line2: any = [];
+  let line3: any = [];
+
+  Array.from(this.reel1.nativeElement.childNodes).map((child, index) => {
+    if(child.dataset.position == 4) line1.push(originalPositionMap[index]);
+    if(child.dataset.position == 3) line2.push(originalPositionMap[index]);
+    if(child.dataset.position == 2) line3.push(originalPositionMap[index]);
+    child.dataset.position = originalPositionMap[index];
+   
+    return child;
+  })
+  Array.from(this.reel2.nativeElement.childNodes).map((child, index) => {
+    if(child.dataset.position == 4) line1.push(originalPositionMap[index]);
+    if(child.dataset.position == 3) line2.push(originalPositionMap[index]);
+    if(child.dataset.position == 2) line3.push(originalPositionMap[index]);
+    child.dataset.position = originalPositionMap[index];
+  
+    return child;
+  }) 
+  Array.from(this.reel3.nativeElement.childNodes).map((child, index) => {
+    if(child.dataset.position == 4) line1.push(originalPositionMap[index]);
+    if(child.dataset.position == 3) line2.push(originalPositionMap[index]);
+    if(child.dataset.position == 2) line3.push(originalPositionMap[index]);
+    child.dataset.position = originalPositionMap[index];
+
+    return child;
+  });
+  line1 = line1.join(',');
+  line2 = line2.join(',');
+  line3 = line3.join(',');
+  console.log(`Line results: ${line1}\n ${line2} \n ${line3}`)
+  console.log(`You won: 
+  ${winningTableMap[line1] ? winningTableMap[line1][1] : winningTableMap.checkCherrySevenCombination(line1) || winningTableMap.checkAnyBarCombination(line1)} \n
+  ${winningTableMap[line2] ? winningTableMap[line2][2] : winningTableMap.checkCherrySevenCombination(line2) || winningTableMap.checkAnyBarCombination(line2)} \n
+  ${winningTableMap[line3] ? winningTableMap[line3][3] : winningTableMap.checkCherrySevenCombination(line3) || winningTableMap.checkAnyBarCombination(line3)}`)
 }
 
 public startReel() {
