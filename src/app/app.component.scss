@@ -206,6 +206,30 @@
       }
     .balance-area {
         position: relative;
+        .balance-container {
+          position: absolute;
+          bottom: 0;
+          input.balance {
+            height: 50px;
+            width: 200px;
+            border-radius: 15px;
+            border: none;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            font-size: 3rem;
+            text-align: center;
+            color: #ffe600;
+            &:focus {
+              outline: none; 
+              box-shadow: 0px 0px 20px #ffe600;
+            }          
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+          }
+        }
     }  
 }
 
