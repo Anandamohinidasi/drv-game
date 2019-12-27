@@ -43,18 +43,10 @@ export class AppComponent {
     2: false,
     3: false
   },
-  cherryFirst: () => this['5,5,5'][1],
-  cherrySecond: () => this['5,5,5'][2],
-  cherryLast: () => this['5,5,5'][3],
-  threeSeven: () => this['1,1,1'][1] || this['1,1,1'][2] || this['1,1,1'][3],
   sevenCherryComb: false,
-  threeTimesThreeBarAny: false,
-  threeTimesTwoBarAny: false,
-  threeTimesSingleBar: false,
   anyBarComb: false,
   checkAnyBarCombination(combination: string) {
     this.anyBarComb = combination.includes('3');
-    console.log(this.anyBarComb)
   },
   checkCherrySevenCombination(combination: string) {
     this.sevenCherryComb = combination.includes('1') && combination.includes('5');
@@ -396,12 +388,12 @@ private checkResult() {
   this.line1Score = winningTableMap[line1] ? winningTableMap[line1][1] : winningTableMap.checkCherrySevenCombination(line1) || winningTableMap.checkAnyBarCombination(line1);
   this.line2Score = winningTableMap[line2] ? winningTableMap[line2][2] : winningTableMap.checkCherrySevenCombination(line2) || winningTableMap.checkAnyBarCombination(line2);
   this.line3Score = winningTableMap[line3] ? winningTableMap[line3][3] : winningTableMap.checkCherrySevenCombination(line3) || winningTableMap.checkAnyBarCombination(line3);
-  console.log(`Line results: ${line1}\n ${line2} \n ${line3}`)
+ /* console.log(`Line results: ${line1}\n ${line2} \n ${line3}`)
   console.log(`You won: 
   ${this.line1Score} \n
   ${this.line2Score} \n
   ${this.line3Score}
-  `);
+  `);*/
 
   const map = {
     [this.line1Score]: {
@@ -423,9 +415,7 @@ private checkResult() {
   this.line3Score);
 
   const bestWinningLine = map[bestPrice];
-  
-  console.log('best winning line', bestPrice, bestWinningLine);
-    
+      
   this.balance += bestPrice;
   
   if (this.winningLine[bestWinningLine.value]) this.winningLine[bestWinningLine.value][bestWinningLine.i] = true;
@@ -437,13 +427,26 @@ private resetAll() {
   this.line1Score = 0;
   this.line2Score = 0;
   this.line3Score = 0;
+  Object.values(this.winningLine).
+  map(obj => {
+    console.log(obj, typeof obj);
+    if(typeof obj === 'object') {
+      Object.values(obj).map(value => {
+        console.log(value);
+        return false
+      })
+    }
+    return obj   
+  })
+  this.winningLine.sevenCherryComb = false;
+  this.winningLine.anyBarComb = false;
 }
 
 public startReel() {
   if (this.balance > 0) {
     this.armClicked = true;
-    setTimeout(()=> this.armClicked = false, 500);
     this.resetAll();
+    setTimeout(()=> this.armClicked = false, 500);
     this.startSpinning();
     this.balance--
   }
