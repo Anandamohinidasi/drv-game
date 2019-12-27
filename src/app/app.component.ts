@@ -9,9 +9,13 @@ export class AppComponent {
 @ViewChild('reel1', {static: false}) reel1;
 @ViewChild('reel2', {static: false}) reel2;
 @ViewChild('reel3', {static: false}) reel3;
+@ViewChild('debugReel1', {static: false}) debugReel1;
+@ViewChild('debugReel2', {static: false}) debugReel2;
+@ViewChild('debugReel3', {static: false}) debugReel3;
 
  public armClicked = false;
  public isSpinning = false;
+ public debugMode = true;
  public balance = 10;
  public line1Score = 0;
  public line2Score = 0;
@@ -55,13 +59,27 @@ export class AppComponent {
  }
 
 private async startSpinning() {
-  const desiredImageForReel1 = Math.floor(Math.random() * 5) + 1;
-  const desiredImageForReel2 = Math.floor(Math.random() * 5) + 1;;
-  const desiredImageForReel3 = Math.floor(Math.random() * 5) + 1;;
+  const debugReel1Image = this.debugMode &&
+                          this.debugReel1.nativeElement.childNodes[0] &&
+                          this.debugReel1.nativeElement.childNodes[0].dataset.position;
+  const debugReel2Image = this.debugMode &&
+                          this.debugReel2.nativeElement.childNodes[0] &&
+                          this.debugReel2.nativeElement.childNodes[0].dataset.position;
+  const debugReel3Image = this.debugMode &&
+                          this.debugReel3.nativeElement.childNodes[0] &&
+                          this.debugReel3.nativeElement.childNodes[0].dataset.position;
+  console.log(debugReel1Image, debugReel2Image, debugReel3Image);
 
-  const desiredPositionForReel1 = Math.floor(Math.random() * 5) + 1;;
-  const desiredPositionForReel2 = Math.floor(Math.random() * 5) + 1;;
-  const desiredPositionForReel3 = Math.floor(Math.random() * 5) + 1;;
+  const desiredImageForReel1 = debugReel1Image || Math.floor(Math.random() * 5) + 1;
+  const desiredImageForReel2 = debugReel2Image || Math.floor(Math.random() * 5) + 1;;
+  const desiredImageForReel3 = debugReel3Image || Math.floor(Math.random() * 5) + 1;;
+
+  const desiredPositionForReel1 = (this.debugMode && 4) || 
+                                  Math.floor(Math.random() * 5) + 1;;
+  const desiredPositionForReel2 = (this.debugMode && 4) ||
+                                   Math.floor(Math.random() * 5) + 1;;
+  const desiredPositionForReel3 = (this.debugMode && 4) ||
+                                   Math.floor(Math.random() * 5) + 1;;
 
   this.spinReel(this.reel1, 2000, desiredImageForReel1, desiredPositionForReel1);
   this.spinReel(this.reel2, 2500, desiredImageForReel2, desiredPositionForReel2);
@@ -452,4 +470,21 @@ public startReel() {
     this.balance--
   }
 }
+
+onDragStart(event: DragEvent) {
+  event.dataTransfer.setData('text', event.target.id);
+}
+
+onDragOver(event: DragEvent) {
+  event.preventDefault()
+}
+
+onDrop(event: DragEvent) {
+  event.target.appendChild(
+    document.getElementById(
+      event.dataTransfer.getData('text')
+      ).cloneNode(true)
+    )
+}
+
 }
