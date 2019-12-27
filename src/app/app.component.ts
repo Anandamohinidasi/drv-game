@@ -12,16 +12,53 @@ export class AppComponent {
 
  public armClicked = false;
  public balance = 10;
+ public line1Score = 0;
+ public line2Score = 0;
+ public line3Score = 0;
+ public math = Math;
+
  public winningLine = {
-  cherryFirst: false,
-  cherrySecond: false,
-  cherryLast: false,
-  threeSeven: false,
+  '5,5,5' : {
+    1: false,
+    2: false,
+    3: false
+  },
+  '1,1,1': {
+    1: false,
+    2: false,
+    3: false
+  },
+  '4,4,4': {
+    1: false,
+    2: false,
+    3: false
+  },
+  '2,2,2': {
+    1: false,
+    2: false,
+    3: false
+  },
+  '3,3,3': {
+    1: false,
+    2: false,
+    3: false
+  },
+  cherryFirst: () => this['5,5,5'][1],
+  cherrySecond: () => this['5,5,5'][2],
+  cherryLast: () => this['5,5,5'][3],
+  threeSeven: () => this['1,1,1'][1] || this['1,1,1'][2] || this['1,1,1'][3],
   sevenCherryComb: false,
   threeTimesThreeBarAny: false,
   threeTimesTwoBarAny: false,
   threeTimesSingleBar: false,
-  anyBarComb: false
+  anyBarComb: false,
+  checkAnyBarCombination(combination: string) {
+    this.anyBarComb = combination.includes('3');
+    console.log(this.anyBarComb)
+  },
+  checkCherrySevenCombination(combination: string) {
+    this.sevenCherryComb = combination.includes('1') && combination.includes('5');
+  }
  }
 
 private async startSpinning() {
@@ -277,7 +314,6 @@ private async spinReel(reel, time, desiredImageForReel, desiredPosition) {
 }
 
 private checkResult() {
-  /* check winning lines*/
   const cherrySevenCombination = {
     1: 75,
     2: 75,
@@ -294,12 +330,6 @@ private checkResult() {
       2: 150,
       3: 150
     },
-    '1,1,5': cherrySevenCombination,
-    '1,5,1': cherrySevenCombination,
-    '5,1,1': cherrySevenCombination,
-    '5,5,1': cherrySevenCombination,
-    '5,1,5': cherrySevenCombination,
-    '1,5,5': cherrySevenCombination,
     '4,4,4': {
       1: 50,
       2: 50,
@@ -322,10 +352,7 @@ private checkResult() {
       return combination.includes('1') && combination.includes('5') && 75;
     }
   }
-  /* check winning lines*/
 
-
-  /*reset to original position*/
   const originalPositionMap = {
     0: 4,
     1: 3,
@@ -365,18 +392,60 @@ private checkResult() {
   line1 = line1.join(',');
   line2 = line2.join(',');
   line3 = line3.join(',');
+
+  this.line1Score = winningTableMap[line1] ? winningTableMap[line1][1] : winningTableMap.checkCherrySevenCombination(line1) || winningTableMap.checkAnyBarCombination(line1);
+  this.line2Score = winningTableMap[line2] ? winningTableMap[line2][2] : winningTableMap.checkCherrySevenCombination(line2) || winningTableMap.checkAnyBarCombination(line2);
+  this.line3Score = winningTableMap[line3] ? winningTableMap[line3][3] : winningTableMap.checkCherrySevenCombination(line3) || winningTableMap.checkAnyBarCombination(line3);
   console.log(`Line results: ${line1}\n ${line2} \n ${line3}`)
   console.log(`You won: 
-  ${winningTableMap[line1] ? winningTableMap[line1][1] : winningTableMap.checkCherrySevenCombination(line1) || winningTableMap.checkAnyBarCombination(line1)} \n
-  ${winningTableMap[line2] ? winningTableMap[line2][2] : winningTableMap.checkCherrySevenCombination(line2) || winningTableMap.checkAnyBarCombination(line2)} \n
-  ${winningTableMap[line3] ? winningTableMap[line3][3] : winningTableMap.checkCherrySevenCombination(line3) || winningTableMap.checkAnyBarCombination(line3)}`)
+  ${this.line1Score} \n
+  ${this.line2Score} \n
+  ${this.line3Score}
+  `);
+
+  const map = {
+    [this.line1Score]: {
+      i: 1,
+      value: line1
+    },
+    [this.line2Score]: {
+      i: 2,
+      value: line2,
+    },
+    [this.line3Score]: {
+      i: 3,
+      value: line3
+    }
+  };
+
+  const bestPrice = Math.max(this.line1Score,
+  this.line1Score,
+  this.line1Score);
+
+  const bestWinningLine = map[bestPrice];
+  
+  console.log('best winning line', bestPrice, bestWinningLine);
+    
+  this.balance += Math.max(this.line1Score,
+    this.line1Score,
+    this.line1Score);
+  
+  if (this.winningLine[bestWinningLine.value]) this.winningLine[bestWinningLine.value][bestWinningLine.i] = true;
+  this.winningLine.checkCherrySevenCombination(bestWinningLine.value);
+  !!!this.winningLine.sevenCherryComb && this.winningLine.checkAnyBarCombination(bestWinningLine.value);
+}
+
+private resetAll() {
+  this.line1Score = 0;
+  this.line2Score = 0;
+  this.line3Score = 0;
 }
 
 public startReel() {
-  console.log('there we go champion!');
   if (this.balance > 0) {
     this.armClicked = true;
-    setTimeout(()=> this.armClicked = false, 500)
+    setTimeout(()=> this.armClicked = false, 500);
+    this.resetAll();
     this.startSpinning();
     this.balance--
   }

@@ -3,7 +3,7 @@
       <section class="pay-table">
           <div class="winning-explanations">
             <div class="explanation-lines" 
-                [ngClass]="{'blink': winningLine.cherryFirst}">
+                [ngClass]="{'blink': winningLine['5,5,5'][1]}">
                 <div class="combination">
                     <div class="cherry combination-symbol"></div>
                     <div class="cherry combination-symbol"></div>
@@ -12,7 +12,7 @@
                 <div class="prize">2000</div>
             </div>
             <div class="explanation-lines"
-                [ngClass]="{'blink': winningLine.cherrySecond}">
+                [ngClass]="{'blink': winningLine['5,5,5'][2]}">
                 <div class="combination">
                     <div class="cherry combination-symbol"></div>
                     <div class="cherry combination-symbol"></div>
@@ -21,7 +21,7 @@
                 <div class="prize">1000</div>
             </div>
             <div class="explanation-lines"
-                [ngClass]="{'blink': winningLine.cherryLast}">
+                [ngClass]="{'blink': winningLine['5,5,5'][3]}">
                 <div class="combination">
                     <div class="cherry combination-symbol"></div>
                     <div class="cherry combination-symbol"></div>
@@ -30,7 +30,9 @@
                 <div class="prize">4000</div>
             </div>
             <div class="explanation-lines"
-                [ngClass]="{'blink': winningLine.threeSeven}">
+                [ngClass]="{'blink': winningLine['1,1,1'][1] ||
+                                     winningLine['1,1,1'][2] ||
+                                     winningLine['1,1,1'][3]}">
                 <div class="combination">
                     <div class="seven combination-symbol"></div>
                     <div class="seven combination-symbol"></div>
@@ -132,6 +134,24 @@
                 </div>      
               </div>
           </div>
+          <div class="winning-line first-line"
+           [ngClass]="{'winner': line1Score != 0 && 
+                                 line1Score == math.max(line1Score,
+                                                line2Score,
+                                                line3Score)}">
+          </div>
+          <div class="winning-line second-line"
+          [ngClass]="{'winner': line2Score != 0 && 
+                                line2Score == math.max(line1Score,
+                                               line2Score,
+                                               line3Score)}">
+         </div>
+          <div class="winning-line third-line"
+          [ngClass]="{'winner': line3Score != 0 && 
+                                line3Score == math.max(line1Score,
+                                               line2Score,
+                                               line3Score)}">
+         </div>
           <div id="shoulder" (click)="startReel()">
             <div [ngClass]="{'clicked': armClicked}" id="arm">
             </div>
