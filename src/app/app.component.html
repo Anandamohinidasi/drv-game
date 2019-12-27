@@ -152,15 +152,18 @@
                                                line2Score,
                                                line3Score)}">
          </div>
-          <div id="shoulder" (click)="startReel()">
-            <div [ngClass]="{'clicked': armClicked}" id="arm">
+          <div id="shoulder" (click)="!isSpinning && startReel()">
+            <div id="arm" [ngClass]="{'clicked': armClicked}">
             </div>
           </div>
         </section>
   </section>
   <section class="balance-area">
     <div class="balance-container">
-      <input type="number" [(ngModel)]="balance" class="balance">
+      <input type="number" 
+             class="balance"
+             [(ngModel)]="balance"
+             [disabled]="isSpinning">
     </div>
     <div class='coin'>
         <div class='front jump'>

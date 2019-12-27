@@ -11,6 +11,7 @@ export class AppComponent {
 @ViewChild('reel3', {static: false}) reel3;
 
  public armClicked = false;
+ public isSpinning = false;
  public balance = 10;
  public line1Score = 0;
  public line2Score = 0;
@@ -65,8 +66,10 @@ private async startSpinning() {
   this.spinReel(this.reel1, 2000, desiredImageForReel1, desiredPositionForReel1);
   this.spinReel(this.reel2, 2500, desiredImageForReel2, desiredPositionForReel2);
   this.spinReel(this.reel3, 3000, desiredImageForReel3, desiredPositionForReel3);
+  this.isSpinning = true;
   setTimeout(() => {
     this.checkResult();
+    this.isSpinning = false;
   }, 3000);
 }
 
@@ -429,10 +432,8 @@ private resetAll() {
   this.line3Score = 0;
   Object.values(this.winningLine).
   map(obj => {
-    console.log(obj, typeof obj);
     if(typeof obj === 'object') {
       Object.values(obj).map(value => {
-        console.log(value);
         return false
       })
     }
