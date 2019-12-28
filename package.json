@@ -6,13 +6,15 @@
     "url": "http://www.anandarodrigues.com"
   },
   "version": "0.0.0",
+  "main": "server.js",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -26,7 +28,8 @@
     "@angular/router": "~8.2.14",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "express": "^4.16.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.21",
@@ -48,5 +51,9 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "typescript": "~3.5.3"
+  },
+  "engines": {
+    "node": "10.15.3",
+    "npm": "6.4.1"
   }
 }
