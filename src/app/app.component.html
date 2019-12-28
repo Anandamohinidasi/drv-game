@@ -202,7 +202,7 @@
                  alt="Cherry image">
         </div>
         <section class="debug-area-bottom">
-            <div class="debug-line-opt-container">
+            <div class="debug-line-opt-container" [ngClass]="{'random-mode': !debugMode}">
                 <div class="debug-line" 
                      [ngClass]="{'active': debugLine == 4}"
                      (click)="debugLine = 4">
