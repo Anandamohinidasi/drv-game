@@ -25,6 +25,7 @@ export class AppComponent {
  public showFlyingPrice = false;
  private cashAudio = new Audio('http://soundbible.com/mp3/Cash%20Register%20Cha%20Ching-SoundBible.com-184076484.mp3');
  private payingAmountSound = new Audio('/assets/audio/coins_scattered.mp3');
+ private whileSpinningFunnySound = new Audio('https://previews.customer.envatousercontent.com/files/258604467/preview.mp3');
 
  public winningLine = {
   '5,5,5' : {
@@ -89,10 +90,13 @@ private async startSpinning() {
   this.spinReel(this.reel2, 2500, desiredImageForReel2, desiredPositionForReel2);
   this.spinReel(this.reel3, 3000, desiredImageForReel3, desiredPositionForReel3);
   this.isSpinning = true;
+  this.whileSpinningFunnySound.loop = true;
+
   setTimeout(() => {
     this.showFlyingPrice = false;
     this.checkResult();
     this.isSpinning = false;
+    this.whileSpinningFunnySound.pause();
   }, 3000);
 }
 
@@ -466,7 +470,10 @@ public startReel() {
     this.showFlyingPrice = false;
     this.resetAll();
     setTimeout(()=> this.armClicked = false, 500);
-    this.startSpinning();
+    setTimeout(() => {
+      this.whileSpinningFunnySound.play();
+      this.startSpinning();
+    }, 450)
     this.balance--
     this.debitCreditMoney = -1;
     this.cashAudio.play();
