@@ -21,6 +21,8 @@ export class AppComponent {
  public line2Score = 0;
  public line3Score = 0;
  public math = Math;
+ public debitCreditMoney: number | string = 0;
+ public showFlyingPrice = false;
 
  public winningLine = {
   '5,5,5' : {
@@ -86,6 +88,7 @@ private async startSpinning() {
   this.spinReel(this.reel3, 3000, desiredImageForReel3, desiredPositionForReel3);
   this.isSpinning = true;
   setTimeout(() => {
+    this.showFlyingPrice = false;
     this.checkResult();
     this.isSpinning = false;
   }, 3000);
@@ -327,11 +330,6 @@ private async spinReel(reel, time, desiredImageForReel, desiredPosition) {
 }
 
 private checkResult() {
-  const cherrySevenCombination = {
-    1: 75,
-    2: 75,
-    3: 75
-  }
   const winningTableMap = {
     '5,5,5' : {
       1: 2000,
@@ -409,12 +407,6 @@ private checkResult() {
   this.line1Score = winningTableMap[line1] ? winningTableMap[line1][1] : winningTableMap.checkCherrySevenCombination(line1) || winningTableMap.checkAnyBarCombination(line1);
   this.line2Score = winningTableMap[line2] ? winningTableMap[line2][2] : winningTableMap.checkCherrySevenCombination(line2) || winningTableMap.checkAnyBarCombination(line2);
   this.line3Score = winningTableMap[line3] ? winningTableMap[line3][3] : winningTableMap.checkCherrySevenCombination(line3) || winningTableMap.checkAnyBarCombination(line3);
- /* console.log(`Line results: ${line1}\n ${line2} \n ${line3}`)
-  console.log(`You won: 
-  ${this.line1Score} \n
-  ${this.line2Score} \n
-  ${this.line3Score}
-  `);*/
 
   const map = {
     [this.line1Score]: {
@@ -438,6 +430,8 @@ private checkResult() {
   const bestWinningLine = map[bestPrice];
       
   this.balance += bestPrice;
+  this.debitCreditMoney = `+ ${bestPrice}`;
+  this.showFlyingPrice = true;
   
   if (this.winningLine[bestWinningLine.value]) this.winningLine[bestWinningLine.value][bestWinningLine.i] = true;
   this.winningLine.checkCherrySevenCombination(bestWinningLine.value);
@@ -464,10 +458,13 @@ private resetAll() {
 public startReel() {
   if (this.balance > 0) {
     this.armClicked = true;
+    this.showFlyingPrice = false;
     this.resetAll();
     setTimeout(()=> this.armClicked = false, 500);
     this.startSpinning();
     this.balance--
+    this.debitCreditMoney = -1;
+    this.showFlyingPrice = true;
   }
 }
 

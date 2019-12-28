@@ -214,6 +214,8 @@
       </div>
     </div>
     <div class="balance-container">
+      <span class="flying-money" [ngClass]="{'fly': showFlyingPrice}" *ngIf="debitCreditMoney == -1">{{debitCreditMoney}}</span>
+      <span class="flying-money" [ngClass]="{'fly': showFlyingPrice}" *ngIf="debitCreditMoney != -1">{{debitCreditMoney}}</span>
       <input type="number" 
              class="balance"
              [(ngModel)]="balance"
