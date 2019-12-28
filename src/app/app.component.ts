@@ -23,6 +23,7 @@ export class AppComponent {
  public math = Math;
  public debitCreditMoney: number | string = 0;
  public showFlyingPrice = false;
+ private cashAudio = new Audio('http://soundbible.com/mp3/Cash%20Register%20Cha%20Ching-SoundBible.com-184076484.mp3');
 
  public winningLine = {
   '5,5,5' : {
@@ -464,6 +465,7 @@ public startReel() {
     this.startSpinning();
     this.balance--
     this.debitCreditMoney = -1;
+    this.cashAudio.play();
     this.showFlyingPrice = true;
   }
 }
