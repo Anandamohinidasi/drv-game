@@ -168,7 +168,7 @@
                     data-tg-off="RANDOM"
                     data-tg-on="DEBUG"
                     for="cb3"></label>
-        </div>            
+        </div>           
         <div class="debug-simbols" [ngClass]="{'random-mode': !debugMode}">
             <img [attr.data-position]="4"
                  draggable="true"
@@ -201,17 +201,36 @@
                  src="/assets/images/Reel/Cherry.png"
                  alt="Cherry image">
         </div>
-      <div class="debug-reel-container" [ngClass]="{'random-mode': !debugMode}">
-        <div #debugReel1 class="debug-reel"
-            (dragover)="onDragOver($event)" 
-            (drop)="onDrop($event)"></div>
-        <div #debugReel2 class="debug-reel"
-            (dragover)="onDragOver($event)" 
-            (drop)="onDrop($event)"></div>
-        <div #debugReel3 class="debug-reel"
-            (dragover)="onDragOver($event)" 
-            (drop)="onDrop($event)"></div>
-      </div>
+        <section class="debug-area-bottom">
+            <div class="debug-line-opt-container">
+                <div class="debug-line" 
+                     [ngClass]="{'active': debugLine == 4}"
+                     (click)="debugLine = 4">
+                    Top Line
+                </div>
+                <div class="debug-line"
+                     [ngClass]="{'active': debugLine == 3}"
+                     (click)="debugLine = 3">
+                     Center Line
+                </div>
+                <div class="debug-line"
+                     [ngClass]="{'active': debugLine == 2}" 
+                     (click)="debugLine = 2">
+                     Bottom Line
+                </div>
+              </div>
+            <div class="debug-reel-container" [ngClass]="{'random-mode': !debugMode}">
+              <div #debugReel1 class="debug-reel"
+                  (dragover)="onDragOver($event)" 
+                  (drop)="onDrop($event)"></div>
+              <div #debugReel2 class="debug-reel"
+                  (dragover)="onDragOver($event)" 
+                  (drop)="onDrop($event)"></div>
+              <div #debugReel3 class="debug-reel"
+                  (dragover)="onDragOver($event)" 
+                  (drop)="onDrop($event)"></div>
+            </div>
+        </section> 
     </div>
     <div class="balance-container">
       <span class="flying-money" [ngClass]="{'fly': showFlyingPrice}" *ngIf="debitCreditMoney == -1">{{debitCreditMoney}}</span>

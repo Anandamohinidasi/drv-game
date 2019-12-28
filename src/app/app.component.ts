@@ -22,6 +22,8 @@ export class AppComponent {
  public line3Score = 0;
  public math = Math;
  public debitCreditMoney: number | string = 0;
+ public debugLine = 1;
+
  public showFlyingPrice = false;
  private cashAudio = new Audio('http://soundbible.com/mp3/Cash%20Register%20Cha%20Ching-SoundBible.com-184076484.mp3');
  private payingAmountSound = new Audio('/assets/audio/coins_scattered.mp3');
@@ -79,12 +81,12 @@ private async startSpinning() {
   const desiredImageForReel2 = debugReel2Image || Math.floor(Math.random() * 5) + 1;;
   const desiredImageForReel3 = debugReel3Image || Math.floor(Math.random() * 5) + 1;;
 
-  const desiredPositionForReel1 = (this.debugMode && 4) || 
-                                  Math.floor(Math.random() * 5) + 1;;
-  const desiredPositionForReel2 = (this.debugMode && 4) ||
-                                   Math.floor(Math.random() * 5) + 1;;
-  const desiredPositionForReel3 = (this.debugMode && 4) ||
-                                   Math.floor(Math.random() * 5) + 1;;
+  const desiredPositionForReel1 = (this.debugMode && this.debugLine) || 
+                                  Math.floor(Math.random() * 5) + 1;
+  const desiredPositionForReel2 = (this.debugMode && this.debugLine) ||
+                                   Math.floor(Math.random() * 5) + 1;
+  const desiredPositionForReel3 = (this.debugMode && this.debugLine) ||
+                                   Math.floor(Math.random() * 5) + 1;
 
   this.spinReel(this.reel1, 2000, desiredImageForReel1, desiredPositionForReel1);
   this.spinReel(this.reel2, 2500, desiredImageForReel2, desiredPositionForReel2);
