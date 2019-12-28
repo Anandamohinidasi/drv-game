@@ -37,6 +37,7 @@
             flex-wrap: wrap;
             .combination, .prize {
                 height: fit-content;
+                z-index: 9;
             }
             .explanation-lines {
                 display: inline-flex;
@@ -202,9 +203,9 @@
     }*/
     .blink:before {
         position: absolute;
-        left: 0;
-        top: -10%;
-        width: 108%;
+        left: -18px;
+        top: -18%;
+        width: 116%;
         height: 120%;
         background: #FFEB3B;
         filter: blur(10px);
