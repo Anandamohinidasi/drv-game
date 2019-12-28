@@ -24,6 +24,7 @@ export class AppComponent {
  public debitCreditMoney: number | string = 0;
  public showFlyingPrice = false;
  private cashAudio = new Audio('http://soundbible.com/mp3/Cash%20Register%20Cha%20Ching-SoundBible.com-184076484.mp3');
+ private payingAmountSound = new Audio('/assets/audio/coins_scattered.mp3');
 
  public winningLine = {
   '5,5,5' : {
@@ -429,10 +430,13 @@ private checkResult() {
   this.line3Score);
 
   const bestWinningLine = map[bestPrice];
-      
-  this.balance += bestPrice;
-  this.debitCreditMoney = `+ ${bestPrice}`;
-  this.showFlyingPrice = true;
+  
+  setTimeout(()=> {
+    this.balance += bestPrice;
+    this.debitCreditMoney = `+ ${bestPrice}`;
+    this.showFlyingPrice = true;
+    this.payingAmountSound.play()
+  }, 500)
   
   if (this.winningLine[bestWinningLine.value]) this.winningLine[bestWinningLine.value][bestWinningLine.i] = true;
   this.winningLine.checkCherrySevenCombination(bestWinningLine.value);
