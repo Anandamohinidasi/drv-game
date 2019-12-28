@@ -15,14 +15,14 @@ export class AppComponent {
 
  public armClicked = false;
  public isSpinning = false;
- public debugMode = true;
+ public debugMode = false;
  public balance = 10;
  public line1Score = 0;
  public line2Score = 0;
  public line3Score = 0;
  public math = Math;
  public debitCreditMoney: number | string = 0;
- public debugLine = 1;
+ public debugLine = 4;
 
  public showFlyingPrice = false;
  private cashAudio = new Audio('http://soundbible.com/mp3/Cash%20Register%20Cha%20Ching-SoundBible.com-184076484.mp3');
@@ -75,7 +75,6 @@ private async startSpinning() {
   const debugReel3Image = this.debugMode &&
                           this.debugReel3.nativeElement.childNodes[0] &&
                           this.debugReel3.nativeElement.childNodes[0].dataset.position;
-  console.log(debugReel1Image, debugReel2Image, debugReel3Image);
 
   const desiredImageForReel1 = debugReel1Image || Math.floor(Math.random() * 5) + 1;
   const desiredImageForReel2 = debugReel2Image || Math.floor(Math.random() * 5) + 1;;
@@ -453,17 +452,17 @@ private resetAll() {
   this.line1Score = 0;
   this.line2Score = 0;
   this.line3Score = 0;
+  this.winningLine.sevenCherryComb = false;
+  this.winningLine.anyBarComb = false;
   Object.values(this.winningLine).
   map(obj => {
     if(typeof obj === 'object') {
-      Object.values(obj).map(value => {
-        return false
+      Object.keys(obj).map(key => {
+        return obj[key] = false;
       })
     }
     return obj   
-  })
-  this.winningLine.sevenCherryComb = false;
-  this.winningLine.anyBarComb = false;
+  }) 
 }
 
 public startReel() {
