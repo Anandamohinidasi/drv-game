@@ -57,7 +57,9 @@
                 <div class="prize">75</div>
             </div>
             <div class="explanation-lines"
-                [ngClass]="{'blink': winningLine.threeTimesThreeBarAny}">
+                [ngClass]="{'blink': winningLine['4,4,4'][1] ||
+                                     winningLine['4,4,4'][2] ||
+                                     winningLine['4,4,4'][3]}">
                 <div class="combination">
                     <div class="threebar combination-symbol"></div>
                     <div class="threebar combination-symbol"></div>
@@ -66,7 +68,9 @@
                 <div class="prize">50</div>
             </div>
             <div class="explanation-lines"
-                [ngClass]="{'blink': winningLine.threeTimesTwoBarAny}">
+                [ngClass]="{'blink': winningLine['2,2,2'][1] ||
+                                     winningLine['2,2,2'][2] ||
+                                     winningLine['2,2,2'][3]}">
                 <div class="combination">
                     <div class="twobar combination-symbol"></div>
                     <div class="twobar combination-symbol"></div>
@@ -75,7 +79,9 @@
                 <div class="prize">20</div>
             </div>
             <div class="explanation-lines"
-                [ngClass]="{'blink': winningLine.threeTimesSingleBar}">
+                [ngClass]="{'blink': winningLine['3,3,3'][1] ||
+                                     winningLine['3,3,3'][2] ||
+                                     winningLine['3,3,3'][3]}">
                 <div class="combination">
                     <div class="bar combination-symbol"></div>
                     <div class="bar combination-symbol"></div>
@@ -104,7 +110,7 @@
             </div>
           </div>
         </section>
-        <section class="slot-machine" [ngClass]="{'spinReel': reelSpinning}" >
+        <section class="slot-machine">
           <div class="depth-giver">
               <div class="reel-container">
                   <div #reel1 class="reel" >

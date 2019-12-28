@@ -315,7 +315,7 @@ private async spinReel(reel, time, desiredImageForReel, desiredPosition) {
       }
     }
   }
-  Array.from(reel.nativeElement.childNodes).map(child => {
+  Array.from(reel.nativeElement.childNodes).map((child : HTMLElement) => {
       const calculatedPosition = rotatingToDesiredMap[child.dataset.position][desiredImageForReel][desiredPosition];
       child.style.transform = `translateY(${calculatedPosition}px)`;
       child.dataset.position = dataPositionMap[calculatedPosition];
@@ -323,9 +323,9 @@ private async spinReel(reel, time, desiredImageForReel, desiredPosition) {
 
   const interval = setInterval(() => {
     Array.from(reel.nativeElement.childNodes)
-    .map(child => {
-      if(child.dataset.position == 5) child.dataset.position = 1
-      else child.dataset.position++
+    .map((child : HTMLElement) => {
+      if(child.dataset.position === '5') child.dataset.position = '1'
+      else child.dataset.position = (parseInt(child.dataset.position) + 1).toString();
       child.style.transform = `translateY(${translationMap[child.dataset.position]}px)`;
         child.style.visibility = visibilityMap[child.dataset.position];
         return child;
@@ -383,28 +383,29 @@ private checkResult() {
   let line2: any = [];
   let line3: any = [];
 
-  Array.from(this.reel1.nativeElement.childNodes).map((child, index) => {
-    if(child.dataset.position == 4) line1.push(originalPositionMap[index]);
-    if(child.dataset.position == 3) line2.push(originalPositionMap[index]);
-    if(child.dataset.position == 2) line3.push(originalPositionMap[index]);
+  Array.from(this.reel1.nativeElement.childNodes).map((child : HTMLElement, index) => {
+    if(child.dataset.position === '4') line1.push(originalPositionMap[index]);
+    if(child.dataset.position === '3') line2.push(originalPositionMap[index]);
+    if(child.dataset.position === '2') line3.push(originalPositionMap[index]);
     child.dataset.position = originalPositionMap[index];
    
     return child;
   })
-  Array.from(this.reel2.nativeElement.childNodes).map((child, index) => {
-    if(child.dataset.position == 4) line1.push(originalPositionMap[index]);
-    if(child.dataset.position == 3) line2.push(originalPositionMap[index]);
-    if(child.dataset.position == 2) line3.push(originalPositionMap[index]);
+  Array.from(this.reel2.nativeElement.childNodes).map((child : HTMLElement, index) => {
+    if(child.dataset.position === '4') line1.push(originalPositionMap[index]);
+    if(child.dataset.position === '3') line2.push(originalPositionMap[index]);
+    if(child.dataset.position === '2') line3.push(originalPositionMap[index]);
     child.dataset.position = originalPositionMap[index];
   
     return child;
   }) 
-  Array.from(this.reel3.nativeElement.childNodes).map((child, index) => {
-    if(child.dataset.position == 4) line1.push(originalPositionMap[index]);
-    if(child.dataset.position == 3) line2.push(originalPositionMap[index]);
-    if(child.dataset.position == 2) line3.push(originalPositionMap[index]);
+  Array.from(this.reel3.nativeElement.childNodes).map((child : HTMLElement, index) => {
+    if(child.dataset.position === '4') line1.push(originalPositionMap[index]);
+    if(child.dataset.position === '3') line2.push(originalPositionMap[index]);
+    if(child.dataset.position === '2') line3.push(originalPositionMap[index]);
     child.dataset.position = originalPositionMap[index];
-
+    console.log(child.dataset.position, typeof child.dataset.position);
+    
     return child;
   });
   line1 = line1.join(',');
@@ -483,7 +484,7 @@ public startReel() {
 }
 
 onDragStart(event: DragEvent) {
-  event.dataTransfer.setData('text', event.target.id);
+  event.dataTransfer.setData('text', (event.target as HTMLElement).id);
 }
 
 onDragOver(event: DragEvent) {
@@ -491,7 +492,7 @@ onDragOver(event: DragEvent) {
 }
 
 onDrop(event: DragEvent) {
-  event.target.appendChild(
+  (event.target as HTMLElement).appendChild(
     document.getElementById(
       event.dataTransfer.getData('text')
       ).cloneNode(true)
