@@ -1,0 +1,54 @@
+@mixin reel {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    position: relative;
+    overflow: hidden;
+    height: -webkit-fill-available;
+    background: $gray;
+    border-radius: 10% 10% 10% 10% / 50% 10% 10% 50%;
+    box-shadow: inset -5px -4px 12px 5px rgba(0, 0, 0, 0.5);
+}
+
+@mixin boxSizing ($value: border-box) {
+	-webkit-box-sizing: $value;
+	-moz-box-sizing: $value;
+	box-sizing: $value;
+}
+@mixin origin($values...) {
+	-webkit-transform-origin: $values;
+	-moz-transform-origin: $values;
+	transform-origin: $values;
+}
+@mixin transform($values...) {
+	-webkit-transform: $values;
+	-moz-transform: $values;
+	transform: $values;	
+}
+@mixin radialGradient($values...) {
+    background-image: -webkit-radial-gradient($values);
+    background-image: -moz-radial-gradient($values);  
+    background-image: -ms-radial-gradient($values);  
+    background-image: -o-radial-gradient($values); 	
+}
+
+@mixin twoLinearGradients($first, $second) {
+    background-image: -webkit-linear-gradient($first), -webkit-linear-gradient($second);
+    background-image: -moz-linear-gradient($first), -moz-linear-gradient($second);
+    background-image: -ms-linear-gradient($first), -ms-linear-gradient($second);
+    background-image: -o-linear-gradient($first), -o-linear-gradient($second);
+  }
+
+@mixin linearGradient($values...) {
+    background-image: -webkit-linear-gradient($values);
+    background-image: -moz-linear-gradient($values);
+    background-image: -ms-linear-gradient($values);
+    background-image: -o-linear-gradient($values);
+  }
+
+@mixin linearGradientUrl($gradient, $url) {
+    background-image: -webkit-linear-gradient($gradient), $url;
+    background-image: -moz-linear-gradient($gradient), $url;
+    background-image: -ms-linear-gradient($gradient), $url;
+    background-image: -o-linear-gradient($gradient), $url;
+  }
