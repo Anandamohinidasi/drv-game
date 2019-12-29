@@ -492,7 +492,12 @@ onDragOver(event: DragEvent) {
 }
 
 onDrop(event: DragEvent) {
-  (event.target as HTMLElement).appendChild(
+  const {target} = event;
+  const {childNodes} = (target as HTMLElement);
+  if(childNodes.length > 0) {
+    (target as HTMLElement).removeChild(childNodes[0])
+  }
+  (target as HTMLElement).appendChild(
     document.getElementById(
       event.dataTransfer.getData('text')
       ).cloneNode(true)
