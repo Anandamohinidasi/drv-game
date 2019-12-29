@@ -1,0 +1,51 @@
+#arm {
+	position: relative;
+    cursor: pointer;
+	width: 60px;
+	height: 80px;
+	border-radius: 10% / 50%;
+	background-color: $secondary-gray;
+	@include twoLinearGradients((left, hsla(0,0%,0%,.3) 0%, hsla(0,0%,0%,0) 15%, hsla(0,0%,100%,0) 50%, hsla(0,0%,0%,0) 85%, hsla(0,0%,0%,.3)),(top, $secondary-dark-gray 0%, $secondary-gray 10%, $secondary-light-gray 30%, hsla(0,0%,100%,.8) 60%, $secondary-light-gray 70%, $secondary-gray 90%, $secondary-dark-gray 100%));
+	&:before {
+		content: '';
+		position: absolute;
+		top: -40px;
+		left: 16px;
+		width: 16px;
+		height: 70px;
+		border-radius: 8px;
+		box-shadow: 0px 2px 0px $secondary-dark-gray;
+		background-color: $secondary-light-gray;
+		transform: rotate(-10deg);
+		@include linearGradient(left, $secondary-gray 0%, hsla(0,0%,100%,.7) 50%, $secondary-gray 100%);
+		background-image: linear-gradient(to right, $secondary-gray 0%, hsla(0,0%,100%,.7) 50%, $secondary-gray 100%);
+		transition: .5s;
+	}
+	&:after {
+		content: '';
+		position: absolute;
+		top: -70px;
+		left: -4px;
+		width: 40px;
+		height: 40px;
+		border-radius: 100%;
+		background-color: $red;
+		border: 2px solid darken($red, 5%);
+		@include boxSizing;
+		@include radialGradient(50% 40%, closest-corner, hsla(0,0,100%,.5), hsla(0,0%,100%,0));
+		transition: .5s;
+	}
+}
+#arm.clicked {
+	&:before {
+		top: -20px;
+		left: 20px;
+		@include transform(rotate3d(100,10,0,180deg));
+		@include origin(0% 100%);
+		transition: .5s;
+	}
+	&:after {
+		top: 90px;
+		transition: .5s;
+	}
+}

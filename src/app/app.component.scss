@@ -2,6 +2,10 @@
 @import './src/mixins';
 @import './src/animations';
 
+@import './src/app/scss/toggle';
+@import './src/app/scss/slot-arm';
+
+
 .game-view--container {
     display: flex;
     justify-content: space-around;
@@ -157,31 +161,6 @@
             display: block;
           }
         }
-        &.spinReel {
-            .depth-giver {
-                .reel-container {
-                    .reel {
-                        img {
-                            &:nth-child(1) { 
-                                animation: slidr1 $animation-speed infinite;
-                            }
-                            &:nth-child(2) { 
-                                animation: slidr2 $animation-speed infinite;
-                            }
-                            &:nth-child(3) { 
-                                animation: slidr3 $animation-speed infinite;
-                            }
-                            &:nth-child(4) { 
-                                animation: slidr4 $animation-speed infinite;
-                            }
-                            &:nth-child(5) {
-                                 animation: slidr5 $animation-speed infinite;
-                                }
-                        }
-                    }
-                }
-            }
-        }
         #shoulder {
             position: absolute;
             right: -56px;
@@ -199,7 +178,7 @@
         opacity: 0;
         z-index: 9;
         animation: flash .5s ease-out alternate infinite;
-      }
+    }
     .balance-area {
         position: relative;
         .debug-area {
@@ -306,161 +285,3 @@
         }
     }  
 }
- 
-
-#arm {
-	position: relative;
-    cursor: pointer;
-	width: 60px;
-	height: 80px;
-	border-radius: 10% / 50%;
-	background-color: $secondary-gray;
-	@include twoLinearGradients((left, hsla(0,0%,0%,.3) 0%, hsla(0,0%,0%,0) 15%, hsla(0,0%,100%,0) 50%, hsla(0,0%,0%,0) 85%, hsla(0,0%,0%,.3)),(top, $secondary-dark-gray 0%, $secondary-gray 10%, $secondary-light-gray 30%, hsla(0,0%,100%,.8) 60%, $secondary-light-gray 70%, $secondary-gray 90%, $secondary-dark-gray 100%));
-	&:before {
-		content: '';
-		position: absolute;
-		top: -40px;
-		left: 16px;
-		width: 16px;
-		height: 70px;
-		border-radius: 8px;
-		box-shadow: 0px 2px 0px $secondary-dark-gray;
-		background-color: $secondary-light-gray;
-		transform: rotate(-10deg);
-		@include linearGradient(left, $secondary-gray 0%, hsla(0,0%,100%,.7) 50%, $secondary-gray 100%);
-		background-image: linear-gradient(to right, $secondary-gray 0%, hsla(0,0%,100%,.7) 50%, $secondary-gray 100%);
-		transition: .5s;
-	}
-	&:after {
-		content: '';
-		position: absolute;
-		top: -70px;
-		left: -4px;
-		width: 40px;
-		height: 40px;
-		border-radius: 100%;
-		background-color: $red;
-		border: 2px solid darken($red, 5%);
-		@include boxSizing;
-		@include radialGradient(50% 40%, closest-corner, hsla(0,0,100%,.5), hsla(0,0%,100%,0));
-		transition: .5s;
-	}
-}
-#arm.clicked {
-	&:before {
-		top: -20px;
-		left: 20px;
-		@include transform(rotate3d(100,10,0,180deg));
-		@include origin(0% 100%);
-		transition: .5s;
-	}
-	&:after {
-		top: 90px;
-		transition: .5s;
-	}
-}
-
-  
-
-
-
-
-
-  .tgl {
-    display: none;
-    &,
-    &:after,
-    &:before,
-    & *,
-    & *:after,
-    & *:before,
-    & + .tgl-btn {
-      box-sizing: border-box;
-      &::selection {
-        background: none;
-      }
-    }
-    
-    + .tgl-btn {
-      outline: 0;
-      display: block;
-      width: 5em;
-      height: 2em;
-      position: relative;
-      cursor: pointer;
-      user-select: none;
-      &:after,
-      &:before {
-        position: relative;
-        display: block;
-        content: "";
-        width: 50%;
-        height: 100%;
-      }
-      
-      &:after {
-        left: 0;
-      }
-      
-      &:before {
-        display: none;
-      }
-    }
-    
-    &:checked + .tgl-btn:after {
-      left: 50%;
-    }
-  }
-  .tgl-skewed {
-    + .tgl-btn {
-      overflow: hidden;
-      backface-visibility: hidden;
-      transition: all .2s ease;
-      font-family: sans-serif;
-      background: $secondary-gray;
-      &:after,
-      &:before {
-        display: inline-block;
-        transition: all .2s ease;
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        line-height: 2em;
-        font-weight: bold;
-        color: $white;
-        text-shadow: 0 1px 0 rgba(0,0,0,.4);
-      }
-      
-      &:after {
-        left: 100%;
-        content: attr(data-tg-on);
-      }
-      
-      &:before {
-        left: 0;
-        content: attr(data-tg-off);
-      }
-      
-      &:active {
-        background: $secondary-gray;
-        &:before {
-          left: -10%;
-        }
-      }
-    }
-    
-    &:checked + .tgl-btn {
-      background: $lime-green;
-      &:before {
-        left: -100%;
-      }
-  
-      &:after {
-        left: 0;
-      }
-  
-      &:active:after {
-        left: 10%;
-      }
-    }
-  }
