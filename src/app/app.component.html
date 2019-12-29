@@ -1,6 +1,14 @@
 <section class="game-view--container">
   <section>
       <section class="pay-table">
+          <div class="balance-container">
+              <span class="flying-money" [ngClass]="{'fly': showFlyingPrice}" *ngIf="debitCreditMoney == -1">{{debitCreditMoney}}</span>
+              <span class="flying-money" [ngClass]="{'fly': showFlyingPrice}" *ngIf="debitCreditMoney != -1">{{debitCreditMoney}}</span>
+              <input type="number" 
+                     class="balance"
+                     [(ngModel)]="balance"
+                     [disabled]="isSpinning">
+            </div>
           <div class="winning-explanations">
             <div class="explanation-lines" 
                 [ngClass]="{'blink': winningLine['5,5,5'][1]}">
@@ -238,26 +246,5 @@
             </div>
         </section> 
     </div>
-    <div class="balance-container">
-      <span class="flying-money" [ngClass]="{'fly': showFlyingPrice}" *ngIf="debitCreditMoney == -1">{{debitCreditMoney}}</span>
-      <span class="flying-money" [ngClass]="{'fly': showFlyingPrice}" *ngIf="debitCreditMoney != -1">{{debitCreditMoney}}</span>
-      <input type="number" 
-             class="balance"
-             [(ngModel)]="balance"
-             [disabled]="isSpinning">
-    </div>
-  <!--  <div class='coin'>
-        <div class='front jump'>
-          <div class='star'></div>
-          <span class='currency'>$</span>
-          <div class='shapes'>
-            <div class='shape_l'></div>
-            <div class='shape_r'></div>
-            <span class='top'></span>
-            <span class='bottom'></span>
-          </div>
-        </div>
-        <div class='shadow'></div>
-      </div>-->
   </section>
 </section>
