@@ -4,7 +4,7 @@ This project was developed as a job test. With all the <3 and efforts that the p
 Checkout the [live demo in here](https://derivco-game.herokuapp.com/).
 Checkout all [project (associated files and code) in here](https://github.com/Anandamohinidasi/drv-game).
 
-This document will offer futter explanations about:
+This document will offer futher explanations about:
 - running the project locally;
 - building and deploying
  As well as provide all the information about:
@@ -40,7 +40,9 @@ As its possible to have winning positions in multiple lines, the rule is: highes
 
 ## Debug area
 Start by toggling the mode button (it'll say random if in random mode, so click on it to switch to debug mode).
-To setup the debug area drag and drop the desired symbol to the desired position. Note that beside is the option to setup the desire line. As the simbols will always keep the same sequence (cause its like a fisical reel), you just need to choose the winning line and automatically all other lines will the setup in the proper sequency to accomplish what you choose.
+To setup the debug area drag and drop the desired symbol to the desired position. If you want to replace a simbol just drop another one on top of it. Note that beside is the option to setup the desire line.
+*Please, also note that even tought there may be setted up simbols if you switch to random mode, those will be ignored.*
+As the simbols will always keep the same sequence (cause its like a fisical reel), you just need to choose the winning line and automatically all other lines will the setup in the proper sequency to accomplish what you choose.
 Please note that following the upper mentioned rule, the highest prize will be always the payed one. So if you choose the center line to have i.e 7 7 7 , this position must be guaranteed, but the winning highlighting border will be shown in the bottom line, because this will contain 3 cherrys on bottom, thats the highest prize (4k credits), bein that the winning line.
 
 
