@@ -54,3 +54,4 @@ Also note that, following the upper mentioned rule, the highest prize will be al
 - Have a reel stop sound;
 - Have a winning sound, diferent one based on prize;
 - Have pro features like: choosing background, paying extra for double prize options, share your score with friends in social media, see online users ranking;
+- We can use visual recognition (Like a pre-processed model from Intel OpenVino) to give user a more immersive game experience, asking them to pull the arm by hands (reading them from camera) instead of click by mouse. Using on edge tecniques this can be approched with good performance and would make the game funnier for the user.
