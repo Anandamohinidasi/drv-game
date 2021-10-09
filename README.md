@@ -1,4 +1,4 @@
-# Derivco Slot Game
+# Slot Game
 
 This project was developed as a job test. With all the <3 and efforts that the provided time allowed.
 Checkout the [live demo in here](https://derivco-game.herokuapp.com/).
